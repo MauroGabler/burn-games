@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <title>Burn Games</title>
 </head>
@@ -12,17 +15,113 @@
 
     </header>
     <main>
-        <h1>Juego del ahorcado</h1>
-        <canvas id="canvas" width="300" height="400"></canvas>
-        <section>
-            <h2>Logica ahorcado</h2>
+        <h1>JUEGO DEL AHORCADO</h1>
+        <section id="container-ahorcado">
+            <div class="contenedor-pizarras">
+                <div id="pizarra-ahorcado">
+                    <canvas id="canvas" class="canvas" width="480" height="400"></canvas>
+                </div>
+                <div id="pizarra-seleccion" class="pizarra-seleccion" >
+                    <h2>PALABRA SECRETA</h2>
+                    <div id="contenedor-palabra-secreta" class="contenedor-palabra-secreta">
+                        <ul id="palabra-secreta" class="palabra-secreta">
+                            <li>F</li>
+                            <li>R</li>
+                            <li>A</li>
+                            <li>N</li>
+                            <li>C</li>
+                            <li>I</li>
+                            <li>A</li>
+                            <li>F</li>
+                            <li>R</li>
+                            <li>A</li>
+                            <li>N</li>
+                            <li>C</li>
+                            <li>I</li>
+                            <li>A</li>
+                            <li>F</li>
+                            <li>R</li>
+                            <li>A</li>
+                            <li>N</li>
+                            <li>C</li>
+                            <li>I</li>
+                            <li>A</li>
+                        </ul>
+                    </div>
+                    <div id="contenedor-boton-comenzar" class="contenedor-boton-comenzar">
+                        <form class="form2">
+                            <button>COMENZAR</button>
+                        </form>
+                    </div>
+                </div>
+                <div id="pizarra-letras" class="pizarra-letras">
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="6">LETRAS SELECCIONADAS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fila1">
+                                    <td>A</td>
+                                    <td>B</td>
+                                    <td>C</td>
+                                    <td>D</td>
+                                    <td>E</td>
+                                    <td>F</td>
+                                </tr>
+                                <tr class="fila2">
+                                    <td>G</td>
+                                    <td>H</td>
+                                    <td>I</td>
+                                    <td>J</td>
+                                    <td>K</td>
+                                    <td>L</td>
+                                </tr>
+                                <tr class="fila3">
+                                    <td>M</td>
+                                    <td>N</td>
+                                    <td>Ñ</td>
+                                    <td>O</td>
+                                    <td>P</td>
+                                    <td>Q</td>
+                                </tr>
+                                <tr class="fila4">
+                                    <td>R</td>
+                                    <td>S</td>
+                                    <td>T</td>
+                                    <td>U</td>
+                                    <td>V</td>
+                                    <td>W</td>
+                                </tr>
+                                <tr class="fila5">
+                                    <td>X</td>
+                                    <td>Y</td>
+                                    <td>Z</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <form class="form1">
+                            <label for="letra" class="lbl-letra">INGRESE UNA LETRA</label>
+                            <input type="text" id="letra" name="letra" maxlength="5">
+                            <button>INGRESAR</button>
+                        </form>
+                    </div>
+                    <div>
+                        <h3>Intentos Restantes: <span>6</span></h3>
+                    </div> 
+                </div>
+            </div>
         </section>
     </main>
     <footer>
-
+        
     </footer>
     <script src="/js/canvas.js"></script>
     <script src="/js/estructura-quemado.js"></script>
-    <script src="/js/logica-quemados.js"></script>
+    <!-- <script src="/js/logica-quemados.js"></script> -->
 </body>
 </html>
