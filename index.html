@@ -7,8 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
     <title>Burn Games</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <header>
@@ -25,45 +25,24 @@
                     <h2>PALABRA SECRETA</h2>
                     <div id="contenedor-palabra-secreta" class="contenedor-palabra-secreta">
                         <ul id="palabra-secreta" class="palabra-secreta">
-                            <li>F</li>
-                            <li>R</li>
-                            <li>A</li>
-                            <li>N</li>
-                            <li>C</li>
-                            <li>I</li>
-                            <li>A</li>
-                            <li>F</li>
-                            <li>R</li>
-                            <li>A</li>
-                            <li>N</li>
-                            <li>C</li>
-                            <li>I</li>
-                            <li>A</li>
-                            <li>F</li>
-                            <li>R</li>
-                            <li>A</li>
-                            <li>N</li>
-                            <li>C</li>
-                            <li>I</li>
-                            <li>A</li>
                         </ul>
                     </div>
                     <div id="contenedor-boton-comenzar" class="contenedor-boton-comenzar">
                         <form class="form2">
-                            <button>COMENZAR</button>
+                            <button id="comenzarBtn">COMENZAR</button>
                         </form>
                     </div>
                 </div>
                 <div id="pizarra-letras" class="pizarra-letras">
                     <div>
-                        <table>
+                        <table >
                             <thead>
                                 <tr>
                                     <th colspan="6">LETRAS SELECCIONADAS</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="fila1">
+                            <tbody id="tabla-letras">
+                                <tr id="fila1">
                                     <td>A</td>
                                     <td>B</td>
                                     <td>C</td>
@@ -71,7 +50,7 @@
                                     <td>E</td>
                                     <td>F</td>
                                 </tr>
-                                <tr class="fila2">
+                                <tr id="fila2">
                                     <td>G</td>
                                     <td>H</td>
                                     <td>I</td>
@@ -79,7 +58,7 @@
                                     <td>K</td>
                                     <td>L</td>
                                 </tr>
-                                <tr class="fila3">
+                                <tr id="fila3">
                                     <td>M</td>
                                     <td>N</td>
                                     <td>Ñ</td>
@@ -87,7 +66,7 @@
                                     <td>P</td>
                                     <td>Q</td>
                                 </tr>
-                                <tr class="fila4">
+                                <tr id="fila4">
                                     <td>R</td>
                                     <td>S</td>
                                     <td>T</td>
@@ -95,7 +74,7 @@
                                     <td>V</td>
                                     <td>W</td>
                                 </tr>
-                                <tr class="fila5">
+                                <tr id="fila5">
                                     <td>X</td>
                                     <td>Y</td>
                                     <td>Z</td>
@@ -104,14 +83,14 @@
                         </table>
                     </div>
                     <div>
-                        <form class="form1">
+                        <form id="form1" class="form1 ocultar">
                             <label for="letra" class="lbl-letra">INGRESE UNA LETRA</label>
-                            <input type="text" id="letra" name="letra" maxlength="5">
-                            <button>INGRESAR</button>
+                            <input type="text" id="letra" name="letra" minlength="1" maxlength="1">
+                            <button id="ingresar">INGRESAR</button>
                         </form>
                     </div>
                     <div>
-                        <h3>Intentos Restantes: <span>6</span></h3>
+                        <h3 id="intentos">Intentos Restantes: <span></span></h3>
                     </div> 
                 </div>
             </div>
@@ -120,8 +99,9 @@
     <footer>
         
     </footer>
-    <script src="/js/canvas.js"></script>
-    <script src="/js/estructura-quemado.js"></script>
+    <script src="./js/acceder-dom.js"></script>
+    <script src="./js/canvas.js"></script>
+    <script src="./js/estructura-quemado.js"></script>
     <!-- <script src="/js/logica-quemados.js"></script> -->
 </body>
 </html>

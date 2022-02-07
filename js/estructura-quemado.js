@@ -64,4 +64,4 @@ function personaQuemado() {
 }
 
 estructuraQuemados();
-personaQuemado();
+
