@@ -157,8 +157,3 @@ function conversorMayusculas (texto) {
 function agregarPalabrasSecretas(arreglo,pSecreta) {
     arreglo.push(pSecreta);
 }
-/* 
-    *******************************************FALTA************************************************
-
-    -Crear una funcion que devuelva una palabra al azar y que no se repita con la anterior
-*/
