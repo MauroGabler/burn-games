@@ -198,11 +198,48 @@ let esTexto = false;
 let esLetraCorrecta = false;
 // Inicializar como vacia la variable que contendra el conjunto de letras correctas que eligio el usuario formando asi la palbra secreta
 let letrasDescubiertas = "";
+// Acceder al input donde se ingresara la nueva palabra secreta
+let agregarPalabraIpt = document.querySelector("#ipt-agregar-palabra");
+// Acceder al boton para agregar una nueva palabra secreta
+let agregarPalabraBtn = document.querySelector("#btn-agregar-palabra");
+// Declarar la variable que alamcenara la nueva palabra secreta
+let palabraNueva;
 
 
 // *************LOGICA****************
 
-// Capturador de eventos que iniciara toda la logica completa ##########PAUSED#########
+// Capturador de eventos que agregara una palabra Secreta
+agregarPalabraBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    // Asignando la palabra ingresada por el usuario obtenienda del input agregar palabra
+    palabraNueva = agregarPalabraIpt.value;
+    console.log(agregarPalabraBtn.value);
+    // Activar validador par que no permita caracteres especiales
+    esTexto = validadorSoloTexto(palabraNueva);
+    console.log(esTexto);
+
+    // Generar un alerta en el caso que el texto ingresado contenga caracteres especiales
+    if (!esTexto) {
+        alert("No debe ingresar caracteres especiales, Agregue una palabra nuevamente!");
+    }
+    else {
+        // Convertir el texto en mayusculas
+        palabraNueva = conversorMayusculas(palabraNueva);
+        // Agrega la nueva palabra a la coleccion de palabrasSecretas
+        palabrasSecretas.push(palabraNueva);
+        console.log(palabrasSecretas);
+        console.log(palabrasSecretas.length);
+        // Generar un alert de que la palabra se ingreso correctamente
+        alert("La nueva palabra ha sido ingresada correctamente");
+
+    }
+    // Resetear palabra ingresada en el input agregar palabra
+    resetearElemento(agregarPalabraIpt);
+});
+
+
+// Capturador de eventos que iniciara toda la logica completa
 comenzarBtn.addEventListener("click", function(event){
     event.preventDefault();
 // Funcion para limpiar el cuerpo del ahorcado
@@ -221,7 +258,7 @@ modificandoLetrasLI(palabraUl,palabraSecreta.length,'crear');
 ocultarElemento(comenzarBtn);
 
 
-})
+});
 
 // Capturador de eventos, funciona al hacer click en el boton ingresar
 ingresarBtn.addEventListener("click", function(event){
@@ -302,6 +339,8 @@ ingresarBtn.addEventListener("click", function(event){
             resetearLetrasUsadas(tbTablaLetras);
             // Eliminar la estructura del deletro de las letras ingresadas por el usuario
             modificandoLetrasLI(palabraUl,palabraSecreta.length,'eliminar');
+            // Cambiar texto del boton comenzar a jugar nuevamente
+            comenzarBtn.textContent = "JUGAR NUEVAMENTE";
             // Mostrar nuevamente el boton comenzar
             aparecerElemento(comenzarBtn);
             // Ocultar estructura para ingresar letras
@@ -309,11 +348,11 @@ ingresarBtn.addEventListener("click", function(event){
             
         }
     }
-})
+});
 
 /* 
     Falta 
     -alertar cuando se gana o se pierde
-    -modificar el boton comenzar despues de terminar la primera palabra a jugar nuevamente
+    -crear funcion para agregar nueva palabra secreta.
 */
 
