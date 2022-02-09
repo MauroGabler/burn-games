@@ -1,4 +1,5 @@
 // *************FUNCIONES****************
+
 // Funcion que retonara una palabra secreta de forma aleatoria
 function palabraRandom(arreglo) {
     let cantidadPalabras = arreglo.length;
@@ -64,6 +65,17 @@ function validadorLetra(letra,contenedorletras) {
     return validador;
 }
 
+function validadorPalabra(palabra,contenedorPalabras) {
+    let validador = true;
+    for (let i = 0; i <contenedorPalabras.length; i++) {
+        if (contenedorPalabras[i]===palabra) {
+            validador = false;
+        }
+    }
+    return validador;
+
+}
+
 // Funcion para eliminar elementos agregandole la clase ocultar
 function ocultarElemento(elemento) {
     elemento.classList.add("ocultar");
@@ -84,7 +96,6 @@ function modificandoLetrasLI (padre,cantidadDeLetras,opcion) {
     else if (opcion === "eliminar"){
         for (let j = 0; j < cantidadDeLetras; j++) {
             padre.removeChild(padre.querySelector('li'));
-            console.log('paseporaqui');
         }
     }
     
@@ -184,6 +195,8 @@ let tbTablaLetras = document.querySelector("#tabla-letras");
 let ingresarLetrasForm = document.querySelector("#form1");
 // Acceder al h3>span donde se encuentra el numero de intentos restantes (por defecto 6)
 let intentoSpan = document.querySelector("#intentos").querySelector("span");
+// Acceder al input que recibe la letra ingresada por el usuario
+let letraInput = document.querySelector("#letra");
 // Inicializando la variable que recibira los intentos restantes del usuario
 let intentos = 6;
 // Intentos erroneos
@@ -196,6 +209,8 @@ let letraIngresada;
 let esTexto = false;
 // Inicializar la variable que valida que se ingrese una letra que no hay sido ocupada anteriormente
 let esLetraCorrecta = false;
+// Inicializar la variable que valida que se ingrese una palabra que no se encuentre en la coleccion de palabras secretas
+let esPalabraCorrecta = false;
 // Inicializar como vacia la variable que contendra el conjunto de letras correctas que eligio el usuario formando asi la palbra secreta
 let letrasDescubiertas = "";
 // Acceder al input donde se ingresara la nueva palabra secreta
@@ -206,32 +221,34 @@ let agregarPalabraBtn = document.querySelector("#btn-agregar-palabra");
 let palabraNueva;
 
 
-// *************LOGICA****************
 
+// *************LOGICA****************
 // Capturador de eventos que agregara una palabra Secreta
 agregarPalabraBtn.addEventListener("click", function (event) {
     event.preventDefault();
 
     // Asignando la palabra ingresada por el usuario obtenienda del input agregar palabra
     palabraNueva = agregarPalabraIpt.value;
-    console.log(agregarPalabraBtn.value);
     // Activar validador par que no permita caracteres especiales
     esTexto = validadorSoloTexto(palabraNueva);
-    console.log(esTexto);
+    // Convertir el texto en mayusculas
+    palabraNueva = conversorMayusculas(palabraNueva);
+    // Activar validador para que la nueva palabra ingresada no este en la coleccion de palabras secretas
+    esPalabraCorrecta = validadorPalabra(palabraNueva,palabrasSecretas);
 
     // Generar un alerta en el caso que el texto ingresado contenga caracteres especiales
     if (!esTexto) {
-        alert("No debe ingresar caracteres especiales, Agregue una palabra nuevamente!");
+        palabraNoCorresponde();
+    }
+    // Generar una alerta si la palabra ingresada esta repetida dentro de la coleccion de palabras secretas
+    else if (!esPalabraCorrecta) {
+        palabraAgregadaRepetida(palabraNueva);
     }
     else {
-        // Convertir el texto en mayusculas
-        palabraNueva = conversorMayusculas(palabraNueva);
         // Agrega la nueva palabra a la coleccion de palabrasSecretas
         palabrasSecretas.push(palabraNueva);
-        console.log(palabrasSecretas);
-        console.log(palabrasSecretas.length);
         // Generar un alert de que la palabra se ingreso correctamente
-        alert("La nueva palabra ha sido ingresada correctamente");
+        palabraAgregadaCorrectamente()
 
     }
     // Resetear palabra ingresada en el input agregar palabra
@@ -251,7 +268,6 @@ aparecerElemento(ingresarLetrasForm);
 intentoSpan.textContent = (intentos);
 // Generar palabra secreta
 palabraSecretaSinRepetir(palabrasSecretas,palabrasRepetidas);
-console.log(palabraSecreta);
 // Generar estructura de la palabra secreta en pantalla
 modificandoLetrasLI(palabraUl,palabraSecreta.length,'crear');
 // Ocultar boton comenzar
@@ -265,15 +281,11 @@ ingresarBtn.addEventListener("click", function(event){
     // Eliminar funcion por defecto al hacer click en un button
     event.preventDefault();
 
-    // Acceder al input que recibe la letra ingresada por el usuario
-    let letraInput = document.querySelector("#letra");
-
     // Asignar a una variable la letra ingresada por el usuario
     letraIngresada = letraInput.value;
     
     // Convertir el texto en mayusculas
     conversorMayusculas(letraIngresada);
-    console.log("Letra Ingresada " + letraIngresada);
     // Activar validador par que no permita caracteres especiales
     esTexto = validadorSoloTexto(letraIngresada)
     // Activar validador par que no permita letras repetidas
@@ -281,12 +293,12 @@ ingresarBtn.addEventListener("click", function(event){
 
     // Generar un alerta en el caso que el texto ingresado contenga caracteres especiales
     if (!esTexto) {
-        alert("No debe ingresar caracteres especiales, elija una letra nuevamente!");
+        textoNoCorresponde();
         resetearElemento(letraInput);
     }
     // Generar un alerta en el caso que la letra ingresada ya se haya ocupado anteriormente
     if (!esLetraCorrecta) {
-        alert("La letra " + letraIngresada + " ya ha sido utilizada ingrese una letra nuevamente");
+        letraocupada(letraIngresada);
         resetearElemento(letraInput);
     }
 
@@ -318,8 +330,6 @@ ingresarBtn.addEventListener("click", function(event){
         if (!esCorrecta) {
             // aumentar en 1 el contador de errores
             contadorErroneos++;
-            // Mostrar intentos restantes
-            console.log("letra incorrecta");
             // Creacion de las partes del cuerpo del ahorcado segun los intentos restantes
             personaQuemado(contadorDeIntentos(intentos,contadorErroneos));
             // Mostrar al usuario sus intentos restantes
@@ -327,10 +337,17 @@ ingresarBtn.addEventListener("click", function(event){
         }
         // Asignando el conjunto de letras descubiertas que forman la palabra secreta
         letrasDescubiertas = juntarLetras(palabraUl);
-        console.log(letrasDescubiertas);
 
         // Condicion para resetear los elementos necesarios una vez el usuario no tenga mas intentos o haya descubierto la palabra secreta
         if (contadorErroneos === intentos ||  palabraSecreta === letrasDescubiertas) {
+            if (contadorErroneos === intentos) {
+                // Mostrar al usuario una alerta de que perdio
+                perdiste();
+            }
+            else if (palabraSecreta === letrasDescubiertas) {
+                // Mostrar una alerta al usuario de que Gano
+                ganaste();
+            }
             // Resetar contador de errores
             contadorErroneos = 0;
             // Resetar la coleccion de letras usadas
@@ -347,12 +364,7 @@ ingresarBtn.addEventListener("click", function(event){
             ocultarElemento(ingresarLetrasForm);
             
         }
+
+            
     }
 });
-
-/* 
-    Falta 
-    -alertar cuando se gana o se pierde
-    -crear funcion para agregar nueva palabra secreta.
-*/
-

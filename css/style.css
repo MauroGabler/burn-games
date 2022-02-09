@@ -1,3 +1,8 @@
+/* Estilos para los sweetAlert */
+.popup-class {
+    border: 10px solid rgb(133, 72, 16);
+}
+
 /* Resetar formato navegador */
 * {
     padding: 0;
@@ -204,8 +209,3 @@ h3 {
     width: 15%;
     height: 40px;
 }
-
-
-
-
-
