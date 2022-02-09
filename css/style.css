@@ -19,19 +19,23 @@ body {
 
 header{
     width: 100%;
-    height: 60px;
     background-color: green;
     border-bottom: 10px solid rgb(133, 72, 16);
 }
 main {
-    width: 100%;
-    height: 650px; 
+    width: 100%; 
+    height: 700px;
 }
 
 footer {
     width: 100%;
     background-color: green;
     border-top: 10px solid rgb(133, 72, 16);
+}
+
+.container-header {
+    display: flex;
+    justify-content: start;
 }
 
 h1,h2 {
@@ -43,7 +47,11 @@ h1 {
 }
 
 h2 {
-    padding-bottom: 150px;
+color: #fff;
+}
+
+.pizarra-seleccion h2 {
+    padding-bottom: 50px;
 }
 
 .contenedor-pizarras {
@@ -103,7 +111,6 @@ td {
 
 form {
     width: 100%;
-    max-height: 400px;
     overflow: hidden;
     display: grid;
     grid-template-columns: 100%;
