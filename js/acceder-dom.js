@@ -1,5 +1,3 @@
-// Acceder al DOM
-
 // *************FUNCIONES****************
 // Funcion que retonara una palabra secreta de forma aleatoria
 function palabraRandom(arreglo) {
@@ -91,26 +89,28 @@ function modificandoLetrasLI (padre,cantidadDeLetras,opcion) {
     }
     
 }
-
+// Funcion que deja el texto de un elemento como vacio
 function resetearElemento (elemento) {
     elemento.value = "";
 }
-
 
 // Funcion que devolvera el texto ingresado en mayusculas
 function conversorMayusculas (texto) {
     letraIngresada = texto.toUpperCase();
     return letraIngresada; 
 }
+
 // Agregara la clase .letra-correcta a un elemento html
 function cambiarLetraCorrecto (elementoHTML){
     elementoHTML.classList.add("letra-correcta");
 }
+
 // Agregara la clase .letra-incorrecta a un elemento html
 function cambiarLetraIncorrecto (elementoHTML){
     elementoHTML.classList.add("letra-incorrecta");
 }
 
+// Funcion si la letra seleccionada con el usuario coincide con la palabra secreta entonces muestre dicha letra como correcta y en caso contrario la muestre como incorrecta
 function LetrasSeleccionadas (padre,letra,booleano) {
     // Recorriendo todos los hijos del padre
     for (let i = 0; i < padre.childElementCount; i++) {
@@ -131,11 +131,13 @@ function LetrasSeleccionadas (padre,letra,booleano) {
     }
 }
 
+// Funcion que muestra los intentos restantes que le quedan al usuario
 function contadorDeIntentos(intentos,contador) {
     let intentosRestantes = intentos - contador;
     return intentosRestantes;
 }
 
+// Funcion para resetear el estado de las letras ya usadas
 function resetearLetrasUsadas (elemento) {
     for (let i = 0; i < elemento.childElementCount; i++) {
         for (let j = 0; j < elemento.children[i].childElementCount; j++){
@@ -150,6 +152,7 @@ function resetearLetrasUsadas (elemento) {
     }
 }
 
+// Funcion que une los elementos de un array como un string o palabra final
 function juntarLetras (elemento) {
     arreglo = [];
     for (let i = 0; i < elemento.childElementCount; i++) {
@@ -193,17 +196,17 @@ let letraIngresada;
 let esTexto = false;
 // Inicializar la variable que valida que se ingrese una letra que no hay sido ocupada anteriormente
 let esLetraCorrecta = false;
-// 
+// Inicializar como vacia la variable que contendra el conjunto de letras correctas que eligio el usuario formando asi la palbra secreta
 let letrasDescubiertas = "";
 
 
 // *************LOGICA****************
 
-
 // Capturador de eventos que iniciara toda la logica completa ##########PAUSED#########
 comenzarBtn.addEventListener("click", function(event){
     event.preventDefault();
-  
+// Funcion para limpiar el cuerpo del ahorcado
+limpiarPantalla(); 
 // Mostrar estructura completa para ingresar letras
 aparecerElemento(ingresarLetrasForm);
 
@@ -220,7 +223,7 @@ ocultarElemento(comenzarBtn);
 
 })
 
-// Capturador de eventos funciona al hacer click en el boton ingresar
+// Capturador de eventos, funciona al hacer click en el boton ingresar
 ingresarBtn.addEventListener("click", function(event){
     // Eliminar funcion por defecto al hacer click en un button
     event.preventDefault();
@@ -246,7 +249,7 @@ ingresarBtn.addEventListener("click", function(event){
     }
     // Generar un alerta en el caso que la letra ingresada ya se haya ocupado anteriormente
     if (!esLetraCorrecta) {
-        alert("La letra " + letraIngresada + " ya ha sido utilizada ingrese una letra neuvamente");
+        alert("La letra " + letraIngresada + " ya ha sido utilizada ingrese una letra nuevamente");
         resetearElemento(letraInput);
     }
 
@@ -274,24 +277,34 @@ ingresarBtn.addEventListener("click", function(event){
         // Se mostrara en la tabla de letras usadas las letras correctas de una forma y las incorrectas de otras para que el usuario pueda saber que letras utilizo.
         LetrasSeleccionadas(tbTablaLetras,letraIngresada,esCorrecta);
 
-        // Bucle para asignar los intentos restantes del usuario y dependiendo esto ir contruyendo la estructura del ahorcado.
+        // Condicion para asignar los intentos restantes del usuario y dependiendo esto ir contruyendo la estructura del ahorcado.
         if (!esCorrecta) {
+            // aumentar en 1 el contador de errores
             contadorErroneos++;
             // Mostrar intentos restantes
             console.log("letra incorrecta");
-            personaQuemado(contadorDeIntentos(intentos,contadorErroneos)); 
+            // Creacion de las partes del cuerpo del ahorcado segun los intentos restantes
+            personaQuemado(contadorDeIntentos(intentos,contadorErroneos));
+            // Mostrar al usuario sus intentos restantes
             intentoSpan.textContent = (intentos - contadorErroneos);
         }
-
+        // Asignando el conjunto de letras descubiertas que forman la palabra secreta
         letrasDescubiertas = juntarLetras(palabraUl);
         console.log(letrasDescubiertas);
 
+        // Condicion para resetear los elementos necesarios una vez el usuario no tenga mas intentos o haya descubierto la palabra secreta
         if (contadorErroneos === intentos ||  palabraSecreta === letrasDescubiertas) {
+            // Resetar contador de errores
             contadorErroneos = 0;
+            // Resetar la coleccion de letras usadas
             letrasUsadas = [];
+            // Resetar tabla con letras usadas y sus estados (correcto o incorrecto)
             resetearLetrasUsadas(tbTablaLetras);
+            // Eliminar la estructura del deletro de las letras ingresadas por el usuario
             modificandoLetrasLI(palabraUl,palabraSecreta.length,'eliminar');
+            // Mostrar nuevamente el boton comenzar
             aparecerElemento(comenzarBtn);
+            // Ocultar estructura para ingresar letras
             ocultarElemento(ingresarLetrasForm);
             
         }
@@ -300,7 +313,6 @@ ingresarBtn.addEventListener("click", function(event){
 
 /* 
     Falta 
-    -resetear estructura ahorcado
     -alertar cuando se gana o se pierde
     -modificar el boton comenzar despues de terminar la primera palabra a jugar nuevamente
 */
